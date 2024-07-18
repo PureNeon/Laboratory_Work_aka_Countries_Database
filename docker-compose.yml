@@ -1,0 +1,28 @@
+version: '3.4'
+
+services:
+  labwork1:
+    image: ${DOCKER_REGISTRY-}labwork1
+    build:
+      context: .
+      dockerfile: LabWork1/Dockerfile
+    ports:
+      - 8000:8080
+    networks:
+      - internal
+
+  countrydictionaryapidb:
+    image: postgres:latest
+    container_name: countrydictionaryapidb
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - 5432:5432
+    networks:
+      - internal
+
+
+networks:
+  internal:
+    driver: bridge
